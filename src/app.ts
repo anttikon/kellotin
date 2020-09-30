@@ -56,6 +56,28 @@ const getHoursByDate = (data: CsvData[]): any =>
 
 const getDay = (date: string) => parseInt(date.split("-")[2]);
 
+const getLanguage = (argv: string[]): "fi" | "en" => {
+  if (argv.length !== 4) {
+    throw new Error("Wrong argument length");
+  }
+  const language = argv[3];
+  if (language === "fi" || language === "en") {
+    return language;
+  }
+  throw new Error("Incorrect language argument!");
+};
+
+const getHoursByDateInLanguage = (
+  hoursByDate: HoursByDate,
+  language: "fi" | "en"
+) => {
+  if (language === "fi") {
+    return hoursByDate.hours.toString().replace(/\./g, ",");
+  } else {
+    return hoursByDate.hours.toString();
+  }
+};
+
 const getScript = (hoursByDates: HoursByDate[]) =>
   hoursByDates
     .reduce<string[]>((acc, hoursByDate) => {
@@ -63,13 +85,16 @@ const getScript = (hoursByDates: HoursByDate[]) =>
         ...acc,
         `document.getElementsByClassName('day-${getDay(
           hoursByDate.date
-        )}')[0].value = "${hoursByDate.hours.toString().replace(/\./g, ",")}"`,
+        )}')[0].value = "${getHoursByDateInLanguage(
+          hoursByDate,
+          getLanguage(process.argv)
+        )}"`,
       ];
     }, [])
     .join(";");
 
 const getClient = (argv: string[]) => {
-  if (argv.length !== 3) {
+  if (argv.length !== 4) {
     throw new Error("Wrong argument length");
   }
   return argv[2];
