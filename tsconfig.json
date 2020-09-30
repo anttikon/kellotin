@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "baseUrl": "./src",
+    "typeRoots": ["./node_modules/@types", "./types"]
+  }
+}

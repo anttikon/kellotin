@@ -1,0 +1,19 @@
+{
+  "name": "kellotin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc -p tsconfig.json && node dist/app"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fast-csv": "4.3.2"
+  },
+  "devDependencies": {
+    "prettier": "2.1.2",
+    "typescript": "4.0.3"
+  }
+}
